@@ -1,0 +1,30 @@
+<div class="page-card">
+  <app-header></app-header>
+
+  <h1>Comparador de constructoras</h1>
+  <p>Selecciona hasta 3 stands de constructoras para compararlos.</p>
+
+  <div class="project-select-grid">
+    <button
+      *ngFor="let stand of constructoras"
+      class="project-chip"
+      [class.active]="isSelected(stand.id)"
+      (click)="toggleStand(stand.id)"
+    >
+      {{ stand.name }}
+    </button>
+  </div>
+
+  <div class="compare-grid" *ngIf="selectedStands.length">
+    <div class="compare-card" *ngFor="let stand of selectedStands">
+      <h3>{{ stand.name }}</h3>
+      <p><strong>Stand:</strong> {{ stand.id }}</p>
+      <p><strong>Zona:</strong> {{ stand.zone }}</p>
+      <p><strong>Ciudad:</strong> {{ stand.city }}</p>
+      <p><strong>Asesor:</strong> {{ stand.advisor }}</p>
+      <p><strong>Información:</strong> {{ stand.commercialInfo }}</p>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

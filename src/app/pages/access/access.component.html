@@ -1,0 +1,157 @@
+<div class="app-shell">
+  <app-header></app-header>
+
+  <section class="access-grid">
+    <div class="hero-card dark-panel">
+      <span class="badge dark">Paso 1 · Validación de ingreso</span>
+
+      <div class="brand-banner">
+        <img src="assets/img/feria-vivienda-banner.png" alt="Feria de Vivienda Banner" class="banner-img" />
+      </div>
+
+      <div class="hero-top">
+        <div class="hero-copy">
+          <h2>Escanea el QR y confirma si tienes acceso a la feria</h2>
+          <p>
+            En la versión real, este QR podría estar en pauta, invitaciones o
+            registro previo. En esta demo el flujo es simulado.
+          </p>
+
+          <div class="qr-scanner-box">
+            <div class="qr-frame">
+               <img src="assets/img/qr-code.png" alt="Código QR de Acceso" class="qr-img" />
+            </div>
+            <div class="qr-instruction">
+              <span class="dot-live"></span>
+              Apunta con tu cámara para validar
+            </div>
+          </div>
+        </div>
+
+        <div class="benefit-column">
+          <div class="benefit-grid">
+            <div class="benefit-item">
+              <span class="icon">🏠</span>
+              Encuentra proyectos según tu perfil
+            </div>
+            <div class="benefit-item">
+              <span class="icon">📍</span>
+              Recibe una ruta sugerida dentro de la feria
+            </div>
+            <div class="benefit-item">
+              <span class="icon">🤝</span>
+              Conéctate con bancos y constructoras
+            </div>
+            <div class="benefit-item">
+              <span class="icon">🌍</span>
+              Explora opciones desde Colombia o el exterior
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="form-header">
+        <h2>Formulario de acceso</h2>
+        <p class="form-subtitle">Completa tus datos para personalizar tu experiencia</p>
+      </div>
+
+      <div class="field">
+        <label>Nombre completo</label>
+        <input [(ngModel)]="form.name" name="name" placeholder="Ej. Felipe Prieto" />
+      </div>
+
+      <div class="field">
+        <label>Correo electrónico</label>
+        <input [(ngModel)]="form.email" name="email" type="email" placeholder="correo@ejemplo.com" />
+      </div>
+
+      <div class="dual-grid">
+        <div>
+          <label>Ubicación</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.location === 'Colombia'" [class.secondary]="form.location !== 'Colombia'" (click)="form.location = 'Colombia'">
+              Colombia
+            </button>
+            <button type="button" class="btn" [class.primary]="form.location === 'Exterior'" [class.secondary]="form.location !== 'Exterior'" (click)="form.location = 'Exterior'">
+              Exterior
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label>¿Tiene acceso o invitación?</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.hasInvitation === 'Sí'" [class.secondary]="form.hasInvitation !== 'Sí'" (click)="form.hasInvitation = 'Sí'">
+              Sí
+            </button>
+            <button type="button" class="btn" [class.primary]="form.hasInvitation === 'No'" [class.secondary]="form.hasInvitation !== 'No'" (click)="form.hasInvitation = 'No'">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dual-grid">
+        <div>
+          <label>¿Cuál es tu objetivo principal?</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.goal === 'Vivir'" [class.secondary]="form.goal !== 'Vivir'" (click)="form.goal = 'Vivir'">Vivir</button>
+            <button type="button" class="btn" [class.primary]="form.goal === 'Invertir'" [class.secondary]="form.goal !== 'Invertir'" (click)="form.goal = 'Invertir'">Invertir</button>
+            <button type="button" class="btn" [class.primary]="form.goal === 'Explorar'" [class.secondary]="form.goal !== 'Explorar'" (click)="form.goal = 'Explorar'">Explorar</button>
+          </div>
+        </div>
+
+        <div>
+          <label>¿Qué tipo de vivienda te interesa?</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.housingType === 'VIS'" [class.secondary]="form.housingType !== 'VIS'" (click)="form.housingType = 'VIS'">VIS</button>
+            <button type="button" class="btn" [class.primary]="form.housingType === 'No VIS'" [class.secondary]="form.housingType !== 'No VIS'" (click)="form.housingType = 'No VIS'">No VIS</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dual-grid">
+        <div>
+          <label>¿Cómo planeas financiar?</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.financing === 'Crédito'" [class.secondary]="form.financing !== 'Crédito'" (click)="form.financing = 'Crédito'">Crédito</button>
+            <button type="button" class="btn" [class.primary]="form.financing === 'Recursos propios'" [class.secondary]="form.financing !== 'Recursos propios'" (click)="form.financing = 'Recursos propios'">Recursos propios</button>
+          </div>
+        </div>
+
+        <div>
+          <label>Presupuesto aproximado</label>
+          <div class="toggle-group">
+            <button type="button" class="btn" [class.primary]="form.budget === 'Menos de $250M'" [class.secondary]="form.budget !== 'Menos de $250M'" (click)="form.budget = 'Menos de $250M'">-$250M</button>
+            <button type="button" class="btn" [class.primary]="form.budget === 'Más de $450M'" [class.secondary]="form.budget !== 'Más de $450M'" (click)="form.budget = 'Más de $450M'">+$450M</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-label">
+          <span>Completitud del registro</span>
+          <strong>{{ completion }}%</strong>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="completion"></div>
+        </div>
+      </div>
+
+      <div class="info-note">
+        <p>Con estas respuestas podemos sugerirte una ruta más útil dentro de la feria: constructoras, bancos y soluciones que encajen con tu necesidad.</p>
+      </div>
+
+      <div class="actions-row">
+        <a routerLink="/" class="btn secondary">Volver</a>
+        <button class="btn primary main-action" [disabled]="!canEnter" (click)="goToMap()">
+          Ingresar al mapa interactivo
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</div>

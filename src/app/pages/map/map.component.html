@@ -1,0 +1,416 @@
+<div class="app-shell">
+  <app-header></app-header>
+
+  <section class="map-layout">
+    <div class="card">
+      <div class="map-header">
+        <div>
+          <h2>Mapa interactivo de la feria</h2>
+          <p>
+            Visualiza los 50 stands, la tarima principal y las zonas de
+            descanso.
+          </p>
+        </div>
+
+        <div class="filters-area">
+          <input
+            [(ngModel)]="search"
+            placeholder="Buscar stand, zona o categoría"
+          />
+
+          <div class="filter-wrap">
+            <button
+              class="btn"
+              [class.primary]="filter === 'Todos'"
+              [class.secondary]="filter !== 'Todos'"
+              (click)="setFilter('Todos')"
+            >
+              Todos
+            </button>
+            <button
+              class="btn"
+              [class.primary]="filter === 'Banco / Asesor'"
+              [class.secondary]="filter !== 'Banco / Asesor'"
+              (click)="setFilter('Banco / Asesor')"
+            >
+              Bancos y asesores
+            </button>
+            <button
+              class="btn"
+              [class.primary]="filter === 'Constructora'"
+              [class.secondary]="filter !== 'Constructora'"
+              (click)="setFilter('Constructora')"
+            >
+              Constructoras
+            </button>
+            <button
+              class="btn"
+              [class.primary]="filter === 'Domótica / Diseño'"
+              [class.secondary]="filter !== 'Domótica / Diseño'"
+              (click)="setFilter('Domótica / Diseño')"
+            >
+              Domótica y diseño
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="fair-map">
+        <div class="fair-title">
+          Ecosistema de compra de vivienda en tiempo real
+        </div>
+
+        <div class="map-access map-access--top">
+          <span class="map-access__icon">🚪</span>
+          <span>Entrada</span>
+        </div>
+
+        <!-- TARIMA -->
+        <div class="stage-box">
+          <span>Tarima</span>
+        </div>
+
+        <!-- FILA SUPERIOR 1-12 -->
+        <div class="top-row">
+          <button
+            *ngFor="let stand of topRowStands; trackBy: trackByStandId"
+            class="stand-box stand-box--bank"
+            [class.active]="selectedStand?.id === stand.id"
+            (click)="selectStand(stand)"
+          >
+            {{ stand.id }}
+          </button>
+        </div>
+
+        <!-- BLOQUES CENTRALES -->
+        <div class="middle-zone">
+          <!-- bloque izquierdo -->
+          <div class="constructor-block">
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasLeft.slice(0, 4);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+
+            <div class="constructor-gap"></div>
+
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasLeft.slice(4, 8);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+          </div>
+
+          <div class="rest-zone">
+            <div class="rest-bubble">
+              <div class="rest-content">
+                <strong>Descanso</strong>
+                <small>Café</small>
+              </div>
+            </div>
+
+            <div class="rest-bubble rest-bubble--lower">
+              <div class="rest-content">
+                <strong>Descanso</strong>
+                <small>Café</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- bloque central -->
+          <div class="constructor-block">
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasCenter.slice(0, 4);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+
+            <div class="constructor-gap"></div>
+
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasCenter.slice(4, 8);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+          </div>
+
+          <div class="rest-zone">
+            <div class="rest-bubble">
+              <div class="rest-content">
+                <strong>Descanso</strong>
+                <small>Café</small>
+              </div>
+            </div>
+
+            <div class="rest-bubble rest-bubble--lower">
+              <div class="rest-content">
+                <strong>Descanso</strong>
+                <small>Café</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- bloque derecho -->
+          <div class="constructor-block">
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasRight.slice(0, 4);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+
+            <div class="constructor-gap"></div>
+
+            <div class="constructor-group">
+              <button
+                *ngFor="
+                  let stand of constructorasRight.slice(4, 8);
+                  trackBy: trackByStandId
+                "
+                class="stand-box stand-box--constructora"
+                [class.active]="selectedStand?.id === stand.id"
+                [class.is-recommended]="isRecommended(stand.id)"
+                (click)="selectStand(stand)"
+              >
+                {{ stand.id }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILA INFERIOR 37-50 -->
+        <div class="bottom-row">
+          <button
+            *ngFor="let stand of bottomRowStands; trackBy: trackByStandId"
+            class="stand-box stand-box--design"
+            [class.active]="selectedStand?.id === stand.id"
+            (click)="selectStand(stand)"
+          >
+            {{ stand.id }}
+          </button>
+        </div>
+
+        <div class="map-access map-access--bottom">
+          <span>Salida</span>
+          <span class="map-access__icon">➡</span>
+        </div>
+
+        <!-- LEYENDA -->
+        <div class="map-legend">
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--bank"></span>
+            Bancos y asesores
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--constructora"></span>
+            Constructoras
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--design"></span>
+            Domótica y diseño interior
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--rest"></span>
+            Zona de descanso
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <div class="card">
+        <h2>Ficha del stand</h2>
+
+        <ng-container *ngIf="selectedStand; else emptyStand">
+          <div class="detail-block">
+            <div class="detail-title">{{ selectedStand.name }}</div>
+            <div class="detail-subtitle">{{ selectedStand.zone }}</div>
+          </div>
+
+          <div class="detail-card">
+            <strong>Categoría</strong>
+            <p>{{ selectedStand.type }}</p>
+          </div>
+
+          <div class="detail-card">
+            <strong>Asesor</strong>
+            <p>{{ selectedStand.advisor }}</p>
+          </div>
+
+          <div class="detail-card">
+            <strong>Información comercial</strong>
+            <p>{{ selectedStand.commercialInfo }}</p>
+          </div>
+
+          <!-- NUEVA SECCIÓN SOLO PARA CONSTRUCTORAS -->
+          <div
+            class="detail-card"
+            *ngIf="
+              selectedStand.type === 'Constructora' &&
+              selectedStand.projects?.length
+            "
+          >
+            <strong>Portafolio disponible</strong>
+
+            <div class="portfolio-summary">
+              <div class="portfolio-main">
+                {{ getProjectCountText() }}
+              </div>
+
+              <div class="portfolio-badges">
+                <span class="portfolio-badge">
+                  VIS: {{ getProjectTypeCount("VIS") }}
+                </span>
+                <span class="portfolio-badge">
+                  No VIS: {{ getProjectTypeCount("No VIS") }}
+                </span>
+                <span class="portfolio-badge">
+                  Inversión: {{ getProjectTypeCount("Inversión") }}
+                </span>
+              </div>
+
+              <div class="portfolio-extra">
+                <p><strong>Desde:</strong> {{ getProjectPriceFrom() }}</p>
+                <p><strong>Ubicaciones:</strong> {{ getProjectCities() }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="detail-card"
+            *ngIf="
+              selectedStand.type === 'Constructora' &&
+              selectedStand.projects?.length
+            "
+          >
+            <strong>Proyectos destacados</strong>
+
+            <div class="project-mini-list">
+              <div
+                class="project-mini-item"
+                *ngFor="let project of selectedStand.projects"
+              >
+                <div class="project-mini-item__header">
+                  <h4>{{ project.name }}</h4>
+                  <span class="project-status">{{ project.status }}</span>
+                </div>
+
+                <p>{{ project.type }} · {{ project.city }}</p>
+                <p>Desde {{ project.priceFrom }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="detail-card"
+            *ngIf="
+              selectedStand.type === 'Constructora' &&
+              !selectedStand.projects?.length
+            "
+          >
+            <strong>Portafolio disponible</strong>
+            <p>
+              Esta constructora participa en feria, pero aún no tiene cargado el
+              detalle de sus proyectos en esta demo.
+            </p>
+          </div>
+
+          <div class="button-grid">
+            <button class="btn primary">Chat asesor</button>
+            <button class="btn secondary">Agendar cita</button>
+            <button class="btn secondary">Llamar</button>
+            <button class="btn secondary">Enviar correo</button>
+            <button
+              class="btn secondary"
+              (click)="toggleFavorite(selectedStand)"
+            >
+              {{
+                selectedStand.favorite
+                  ? "Quitar de favoritos"
+                  : "Guardar favorito"
+              }}
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-template #emptyStand>
+          <div class="empty-box">
+            Selecciona un stand en el mapa para ver sus detalles.
+          </div>
+        </ng-template>
+      </div>
+
+      <div class="card">
+        <h2>Crédito de vivienda</h2>
+
+        <div class="detail-card success">
+          Perfil precalificado para vivienda entre
+          <strong>{{ estimatedRange }}</strong
+          >.
+        </div>
+
+        <div class="detail-card info">
+          Banco recomendado:
+          <strong>{{ recommendedBank }}</strong
+          >.
+        </div>
+
+        <div class="detail-card violet">
+          Siguiente paso sugerido: hablar con asesor financiero y agendar
+          simulación completa.
+        </div>
+
+        <div class="detail-card info">
+          Deacuerdo a tu perfil, te sugerimos visitar los stands.
+          <strong>18,30,36</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</div>

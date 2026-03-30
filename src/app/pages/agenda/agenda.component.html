@@ -1,0 +1,24 @@
+<div class="page-card">
+  <div class="top-nav">
+    <a routerLink="/" class="btn secondary">Inicio</a>
+    <a routerLink="/map" class="btn secondary">Mapa</a>
+    <a routerLink="/favorites" class="btn secondary">Favoritos</a>
+    <a routerLink="/appointments" class="btn secondary">Mis citas</a>
+  </div>
+
+  <h1>Agenda del evento</h1>
+  <p>Conferencias, asesorías y actividades destacadas.</p>
+
+  <div class="agenda-list">
+    <div class="agenda-item" *ngFor="let event of events">
+      <div class="agenda-hour">{{ event.hour }}</div>
+      <div class="agenda-content">
+        <h3>{{ event.title }}</h3>
+        <p><strong>Ponente:</strong> {{ event.speaker }}</p>
+        <p><strong>Lugar:</strong> {{ event.place }}</p>
+        <p>{{ event.description }}</p>
+        <button class="btn secondary">Agregar a mi agenda</button>
+      </div>
+    </div>
+  </div>
+</div>

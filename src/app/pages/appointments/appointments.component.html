@@ -1,0 +1,19 @@
+<div class="page-card">
+  <div class="top-nav">
+    <a routerLink="/" class="btn secondary">Inicio</a>
+    <a routerLink="/agenda" class="btn secondary">Agenda</a>
+    <a routerLink="/map" class="btn secondary">Mapa</a>
+  </div>
+
+  <h1>Mis citas</h1>
+
+  <div class="agenda-list">
+    <div class="agenda-item" *ngFor="let appointment of appointments">
+      <div class="agenda-hour">{{ appointment.hour }}</div>
+      <div class="agenda-content">
+        <h3>{{ appointment.title }}</h3>
+        <p>{{ appointment.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

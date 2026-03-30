@@ -1,0 +1,25 @@
+<div class="page-card">
+  <div class="top-nav">
+    <a routerLink="/" class="btn secondary">Inicio</a>
+    <a routerLink="/map" class="btn secondary">Mapa</a>
+    <a routerLink="/compare" class="btn secondary">Comparador</a>
+  </div>
+
+  <h1>Mis favoritos</h1>
+  <p>Proyectos, stands y contactos que guardaste durante la feria.</p>
+
+  <div class="favorites-grid" *ngIf="favorites.length; else emptyFavorites">
+    <div class="favorite-card" *ngFor="let item of favorites">
+      <h3>{{ item.name }}</h3>
+      <p>{{ item.zone }}</p>
+      <p>{{ item.commercialInfo }}</p>
+      <p><strong>Asesor:</strong> {{ item.advisor }}</p>
+    </div>
+  </div>
+
+  <ng-template #emptyFavorites>
+    <div class="empty-box">
+      Aún no tienes favoritos guardados.
+    </div>
+  </ng-template>
+</div>

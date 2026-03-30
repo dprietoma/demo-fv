@@ -1,0 +1,179 @@
+<div class="app-shell">
+  <section class="landing-hero">
+    <div class="hero-content">
+      <span class="pill">Feria de Vivienda 2026</span>
+      <h1>Compra, compara y conecta con los mejores proyectos de vivienda</h1>
+      <p>
+        Accede a la feria desde un QR o desde cualquier lugar del mundo.
+        Explora proyectos, agenda citas, revisa créditos y participa en la agenda académica.
+      </p>
+
+      <div class="countdown">
+        <div><strong>{{ countdown.days }}</strong><span>días</span></div>
+        <div><strong>{{ countdown.hours }}</strong><span>horas</span></div>
+        <div><strong>{{ countdown.minutes }}</strong><span>min</span></div>
+      </div>
+
+      <div class="hero-actions">
+        <a routerLink="/access" class="btn primary">Ingresar a la feria</a>
+        <a routerLink="/map" class="btn secondary">Ver expositores</a>
+        <a routerLink="/agenda" class="btn secondary">Agenda de conferencias</a>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+  <div class="stat-card stat-card--live" *ngFor="let item of liveStats">
+    <div class="live-dot"></div>
+    <div class="stat-value counter-animate">
+      {{ formatStat(item.value) }}
+    </div>
+    <div class="stat-label">{{ item.label }}</div>
+    <div class="stat-progress">
+      <div
+        class="stat-progress__fill"
+        [style.width.%]="(item.value / item.target) * 100"
+      ></div>
+    </div>
+  </div>
+</div>
+  </section>
+
+  <section class="info-grid">
+    <div class="card large">
+      <h2>¿Qué resuelve esta demo?</h2>
+
+      <div class="feature-grid">
+        <div class="feature-item">Acceso por QR para visitantes en feria</div>
+        <div class="feature-item">Ingreso remoto para usuarios en el exterior</div>
+        <div class="feature-item">Mapa interactivo con ubicación de stands</div>
+        <div class="feature-item">Vista de proyectos por constructora</div>
+        <div class="feature-item">Contacto directo con asesores</div>
+        <div class="feature-item">Información de crédito y financiación</div>
+        <div class="feature-item">Zona de domótica y diseño interior</div>
+        <div class="feature-item">Tarima y ficha de conferencista</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Conferencista destacada</h2>
+      <div class="speaker-box">
+        <h3>Mabel Quintero</h3>
+        <p>
+          Perfil destacado para la agenda central. Esta demo presenta su espacio
+          como ficha informativa de referencia para la feria.
+        </p>
+      </div>
+      <button class="btn secondary full" (click)="openSpeakerModal()">
+        Ver información de la conferencia
+      </button>
+    </div>
+  </section>
+
+  <section class="allies">
+    <h2>Aliados presentes</h2>
+    <div class="ally-grid">
+      <div class="ally-card" *ngFor="let ally of allies">{{ ally }}</div>
+    </div>
+  </section>
+
+ <section class="treasure-route">
+  <div class="treasure-route__content">
+    <span class="treasure-route__tag">Ruta del tesoro inmobiliario</span>
+
+    <h2>Tu próximo hogar empieza como una gran búsqueda 🗺️</h2>
+
+    <p class="treasure-route__intro">
+      Sigue las pistas, completa cada parada y descubre el camino ideal para encontrar
+      la vivienda que mejor se ajusta a tu perfil, tu presupuesto y tu estilo de vida.
+    </p>
+
+    <div class="treasure-route__steps">
+      <div class="treasure-step">
+        <div class="treasure-step__icon">1</div>
+        <div class="treasure-step__text">
+          <h3>Descubre tu perfil</h3>
+          <p>Responde unas preguntas rápidas para identificar qué tipo de vivienda buscas.</p>
+        </div>
+      </div>
+
+      <div class="treasure-step">
+        <div class="treasure-step__icon">2</div>
+        <div class="treasure-step__text">
+          <h3>Explora el mapa</h3>
+          <p>Recorre la feria, encuentra constructoras, bancos y soluciones para tu nuevo hogar.</p>
+        </div>
+      </div>
+
+      <div class="treasure-step">
+        <div class="treasure-step__icon">3</div>
+        <div class="treasure-step__text">
+          <h3>Sigue las pistas financieras</h3>
+          <p>Consulta opciones de crédito, subsidios y alternativas para hacer realidad tu compra.</p>
+        </div>
+      </div>
+
+      <div class="treasure-step">
+        <div class="treasure-step__icon">4</div>
+        <div class="treasure-step__text">
+          <h3>Habla con los aliados</h3>
+          <p>Conéctate con asesores, agenda citas y resuelve dudas sobre proyectos y financiación.</p>
+        </div>
+      </div>
+
+      <div class="treasure-step">
+        <div class="treasure-step__icon treasure-step__icon--final">🏠</div>
+        <div class="treasure-step__text">
+          <h3>Encuentra tu hogar ideal</h3>
+          <p>Completa tu recorrido y descubre la mejor ruta para dar el siguiente paso hacia tu vivienda.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a routerLink="/access" class="btn primary">Comenzar la búsqueda</a>
+      <a routerLink="/map" class="btn secondary">Ver mapa interactivo</a>
+    </div>
+  </div>
+</section>
+
+  <div class="modal-backdrop" *ngIf="showSpeakerModal" (click)="closeSpeakerModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Mabel Quintero</h2>
+        <button class="close-btn" (click)="closeSpeakerModal()">✕</button>
+      </div>
+
+      <p class="modal-subtitle">
+        Charla central de feria | Inspiración, compra inteligente y tendencias del hogar
+      </p>
+
+      <div class="speaker-content">
+        <div class="speaker-photo-placeholder">
+          Espacio para foto de la conferencista
+        </div>
+
+        <div class="speaker-text">
+          <div class="detail-card">
+            <strong>Descripción</strong>
+            <p>
+              Esta ficha está planteada para la demo comercial. Puedes reemplazar
+              este contenido con biografía real, trayectoria, redes y agenda.
+            </p>
+          </div>
+
+          <div class="detail-card">
+            <strong>Tema sugerido</strong>
+            <p>
+              Cómo tomar mejores decisiones de compra de vivienda y preparar el hogar del futuro.
+            </p>
+          </div>
+
+          <div class="detail-card">
+            <strong>Horario</strong>
+            <p>3:00 p.m. a 3:45 p.m. en tarima principal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

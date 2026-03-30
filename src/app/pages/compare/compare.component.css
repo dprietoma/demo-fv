@@ -1,0 +1,46 @@
+.page-card {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 24px;
+}
+
+.project-select-grid,
+.compare-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.project-select-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.compare-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.project-chip,
+.compare-card {
+  background: white;
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.project-chip {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.project-chip.active {
+  background: #0f172a;
+  color: white;
+}
+
+@media (max-width: 1000px) {
+  .project-select-grid,
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
